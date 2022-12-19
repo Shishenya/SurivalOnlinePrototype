@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0680678a6497a46917d0d11fecae7f, type: 3}
+  m_Name: StorageItems_Material
+  m_EditorClassIdentifier: 
+  items:
+  - id: 1
+    basicParameters:
+      itemName: "\u041C\u0435\u0442\u0430\u043B\u043B"
+      itemDescription: "\u041F\u0440\u043E\u0441\u0442\u043E\u0439 \u043C\u0435\u0442\u0430\u043B\u043B"
+      itemIcon: {fileID: 21300000, guid: a26682d8ca7e31f43bfcb3844116d3f1, type: 3}
+    worldParameters:
+      prefabInWorld: {fileID: 0}
+      isPickUp: 0
+  - id: 2
+    basicParameters:
+      itemName: "\u041A\u0430\u043C\u0435\u043D\u044C"
+      itemDescription: "\u041A\u0430\u043C\u0435\u043D\u044C. \u0422\u0430\u043A\u0438\u043C
+        \u043C\u043E\u0436\u043D\u043E \u0431\u0440\u043E\u0441\u0438\u0442\u044C
+        \u0432\u043E \u0432\u0440\u0430\u0433\u0430"
+      itemIcon: {fileID: 21300000, guid: 8699af1ed96f5ea41bd19010d3c28856, type: 3}
+    worldParameters:
+      prefabInWorld: {fileID: 0}
+      isPickUp: 0
+  - id: 3
+    basicParameters:
+      itemName: "\u0414\u0435\u0440\u0435\u0432\u043E"
+      itemDescription: "\u0414\u0435\u0440\u0435\u0432\u044F\u0448\u043A\u0430"
+      itemIcon: {fileID: 21300000, guid: 7f0032b775619ee4189e273b4edba9e7, type: 3}
+    worldParameters:
+      prefabInWorld: {fileID: 6166631099266474825, guid: 9ea8603d317cd4241b928651a11e4578, type: 3}
+      isPickUp: 1
