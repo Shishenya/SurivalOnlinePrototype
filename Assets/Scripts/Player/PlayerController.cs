@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     private Camera _playerCamera;
     private Creature _creature;
 
+    public bool enablePlayerController = true;
+
     [SerializeField] bool invertLook = false;
     public Transform viewPoint;
     public float mouseSensitivity = 1f;
@@ -34,6 +36,8 @@ public class PlayerController : MonoBehaviour
 
 
 
+
+
     private void Awake()
     {
         _playerCamera = Camera.main;
@@ -58,6 +62,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (!enablePlayerController) return;
+        
         // —читываем движение
         _mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * mouseSensitivity;
 

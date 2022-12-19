@@ -7,9 +7,12 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private StorageItemsSO _storageItems; // список всех предметов
     [SerializeField] private GameObject _inventoryGrid; // ссылка на UI инвентаря
     [SerializeField] private List<InventoryCell> inventoryCells; // ссылки на ячейки инвентаря
-    private Dictionary<int, BaseItem> _playerInventory; // словарь предметов игрока
+    private Dictionary<int, int> _playerInventory; // словарь предметов игрока
 
-    
+    public static PlayerInventory Instance;
+
+
+
     public StorageItemsSO StorageItems
     {
         get => _storageItems;
@@ -17,8 +20,9 @@ public class PlayerInventory : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         _inventoryGrid.SetActive(false);
-        _playerInventory = new Dictionary<int, BaseItem>();
+        _playerInventory = new Dictionary<int, int>();
 
 
         // Test
@@ -33,7 +37,7 @@ public class PlayerInventory : MonoBehaviour
             BaseItem item = _storageItems.GetItemInStorage(itemsAdd[i]);
             if (item != null)
             {
-                _playerInventory.Add(item.id, item);
+                _playerInventory.Add(item.id, 1);
             }
         }
     }
@@ -43,18 +47,14 @@ public class PlayerInventory : MonoBehaviour
         // test
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            // Открываем инвентарь
             OpenCloseInventoryUI();
-
-            int i = 0;
-            foreach (var inventoryPlayer in _playerInventory)
-            {
-                // Debug.Log(inventoryPlayer.Value.basicParameters.itemName);
-                inventoryCells[i].Init(inventoryPlayer.Value.basicParameters.itemIcon, 1);
-                i++;
-            }
         }
     }
 
+    /// <summary>
+    /// Добавление предмета в инвентарь
+    /// </summary>
     public bool AddItem(int id)
     {
 
@@ -65,23 +65,63 @@ public class PlayerInventory : MonoBehaviour
         if (baseItem != null)
         {
             // Добавляем предмет
-            _playerInventory.Add(id, baseItem);
-            Debug.Log("Предмет " + baseItem.basicParameters.itemName + " добавлен в инвентарь");
+            if (!_playerInventory.ContainsKey(id))
+            {
+                _playerInventory.Add(id, 1);
+                Debug.Log("Предмет " + baseItem.basicParameters.itemName + " добавлен в инвентарь как новый");
+            }
+            else
+            {
+                _playerInventory[id]++;
+                Debug.Log("Предмет " + baseItem.basicParameters.itemName + " уже был в инвентаре. Мы увеличели его количество. Теперь его " + _playerInventory[id]);
+            }
         }
 
         return true;
     }
 
+    public bool RemoveItem(int id)
+    {
+
+        // Очищаем ячейки
+        ClearAllCell();
+
+        BaseItem baseItem = GlobalStorage.Instance.storageItems.GetItemInStorage(id);
+        if (baseItem == null) return false;
+        if (!_playerInventory.ContainsKey(id)) return false;
+
+        _playerInventory[id]--;
+        if (_playerInventory[id]<=0)
+        {
+            _playerInventory.Remove(id);
+        }
+
+        // Визуализируем
+        VisualInventory();
+
+        return true;
+    }
+
+    /// <summary>
+    /// Открытие и закрытие инвентаря
+    /// </summary>
     private void OpenCloseInventoryUI()
     {
-        if (_inventoryGrid.activeInHierarchy)
+        if (_inventoryGrid.activeInHierarchy) // закрываем инвентарь
         {
             _inventoryGrid.SetActive(false);
+            gameObject.GetComponent<PlayerController>().enablePlayerController = true;
+            Cursor.lockState = CursorLockMode.Locked;
         }
-        else
+        else // открываем инвентарь
         {
             ClearAllCell();
+            VisualInventory();
+
             _inventoryGrid.SetActive(true);
+            gameObject.GetComponent<PlayerController>().enablePlayerController = false;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 
@@ -96,4 +136,15 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
+    private void VisualInventory()
+    {
+        int i = 0;
+        foreach (var inventoryPlayer in _playerInventory)
+        {
+            // Debug.Log(inventoryPlayer.Value.basicParameters.itemName);
+            BaseItem baseItem = StorageItems.GetItemInStorage(inventoryPlayer.Key);
+            inventoryCells[i].Init(baseItem, inventoryPlayer.Value);
+            i++;
+        }
+    }
 }
