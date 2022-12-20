@@ -292,6 +292,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryCell4
       objectReference: {fileID: 0}
+    - target: {fileID: 2840802640207652715, guid: c5e81fb8426e15d478b86d7b66c05a77, type: 3}
+      propertyPath: _itemContextPoint
+      value: 
+      objectReference: {fileID: 2119867446}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e81fb8426e15d478b86d7b66c05a77, type: 3}
 --- !u!114 &13130300 stripped
@@ -580,6 +584,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 315696642}
+  - {fileID: 2119867447}
   m_Father: {fileID: 339749749}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1172,6 +1177,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryCell1
       objectReference: {fileID: 0}
+    - target: {fileID: 2840802640207652715, guid: c5e81fb8426e15d478b86d7b66c05a77, type: 3}
+      propertyPath: _itemContextPoint
+      value: 
+      objectReference: {fileID: 2119867446}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e81fb8426e15d478b86d7b66c05a77, type: 3}
 --- !u!114 &248455490 stripped
@@ -2579,6 +2588,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryCell3
       objectReference: {fileID: 0}
+    - target: {fileID: 2840802640207652715, guid: c5e81fb8426e15d478b86d7b66c05a77, type: 3}
+      propertyPath: _itemContextPoint
+      value: 
+      objectReference: {fileID: 2119867446}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e81fb8426e15d478b86d7b66c05a77, type: 3}
 --- !u!114 &701426938 stripped
@@ -2856,7 +2869,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3655833789515973999, guid: 477441a78c94f774c8e1fd05ed7e08b2, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3655833789515973999, guid: 477441a78c94f774c8e1fd05ed7e08b2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3236,6 +3249,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryCell5
       objectReference: {fileID: 0}
+    - target: {fileID: 2840802640207652715, guid: c5e81fb8426e15d478b86d7b66c05a77, type: 3}
+      propertyPath: _itemContextPoint
+      value: 
+      objectReference: {fileID: 2119867446}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e81fb8426e15d478b86d7b66c05a77, type: 3}
 --- !u!114 &1090929186 stripped
@@ -3349,6 +3366,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryCell7
       objectReference: {fileID: 0}
+    - target: {fileID: 2840802640207652715, guid: c5e81fb8426e15d478b86d7b66c05a77, type: 3}
+      propertyPath: _itemContextPoint
+      value: 
+      objectReference: {fileID: 2119867446}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e81fb8426e15d478b86d7b66c05a77, type: 3}
 --- !u!114 &1124220407 stripped
@@ -3767,6 +3788,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryCell9
       objectReference: {fileID: 0}
+    - target: {fileID: 2840802640207652715, guid: c5e81fb8426e15d478b86d7b66c05a77, type: 3}
+      propertyPath: _itemContextPoint
+      value: 
+      objectReference: {fileID: 2119867446}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e81fb8426e15d478b86d7b66c05a77, type: 3}
 --- !u!114 &1429668499 stripped
@@ -3912,7 +3937,7 @@ PrefabInstance:
       objectReference: {fileID: 1429668499}
     - target: {fileID: 561093051287747661, guid: a5bf278628278af4caa50c0693f7e555, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 561093051287747661, guid: a5bf278628278af4caa50c0693f7e555, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4128,6 +4153,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryCell6
       objectReference: {fileID: 0}
+    - target: {fileID: 2840802640207652715, guid: c5e81fb8426e15d478b86d7b66c05a77, type: 3}
+      propertyPath: _itemContextPoint
+      value: 
+      objectReference: {fileID: 2119867446}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e81fb8426e15d478b86d7b66c05a77, type: 3}
 --- !u!114 &1509318622 stripped
@@ -4315,6 +4344,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryCell2
       objectReference: {fileID: 0}
+    - target: {fileID: 2840802640207652715, guid: c5e81fb8426e15d478b86d7b66c05a77, type: 3}
+      propertyPath: _itemContextPoint
+      value: 
+      objectReference: {fileID: 2119867446}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e81fb8426e15d478b86d7b66c05a77, type: 3}
 --- !u!114 &1607193512 stripped
@@ -5348,6 +5381,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryCell8
       objectReference: {fileID: 0}
+    - target: {fileID: 2840802640207652715, guid: c5e81fb8426e15d478b86d7b66c05a77, type: 3}
+      propertyPath: _itemContextPoint
+      value: 
+      objectReference: {fileID: 2119867446}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e81fb8426e15d478b86d7b66c05a77, type: 3}
 --- !u!114 &2083183532 stripped
@@ -5434,6 +5471,41 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d56c8e7294f1fb94f8f5788e60d0018e, type: 3}
+--- !u!1 &2119867446
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2119867447}
+  m_Layer: 5
+  m_Name: ItemContextPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2119867447
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119867446}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 102992015}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 100, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 1, y: 1}
 --- !u!1001 &2143129219
 PrefabInstance:
   m_ObjectHideFlags: 0
