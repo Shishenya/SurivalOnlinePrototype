@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Creature : MonoBehaviour
 {
+    // Details CReature
     public MoveDatailsSO moveDetails;
     public StaminaDetailsSO staminaDetails;
+
+    // Points
+    public GameObject spawnPointAfterRemove;
 
     // Stamina
     public float maxStaminaAmount;

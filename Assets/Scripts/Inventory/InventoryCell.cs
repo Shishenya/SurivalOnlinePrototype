@@ -45,26 +45,36 @@ public class InventoryCell : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         _baseItem = null;
         icon.sprite = _transperentSprite;
         amountText.text = "";
+        Destroy(_itemContext);
+        _itemContext = null;
     }
 
     /// <summary>
     /// Кликнул по ячейке
     /// </summary>
-    /// <param name="eventData"></param>
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
+            // Временно это отвечает за удаление
+
+            if (_baseItem.worldParameters.prefabInWorld != null)
+            {
+                GameObject removeItem = Instantiate(_baseItem.worldParameters.prefabInWorld, GlobalVariable.Instance.itemsParent.transform);
+                removeItem.transform.position = PlayerController.Instance.playerSpawnPointbyRemove.transform.position;
+            }
+
+            // Удаляем из инвентаря
             PlayerInventory.Instance.RemoveItem(_baseItem.id);
-            Debug.Log("Нажал на тебя ПКМ");
+
+            // Debug.Log("Нажал на тебя ПКМ");
         }
     }
 
     /// <summary>
     /// Навел мышкой на ячейку
     /// </summary>
-    /// <param name="eventData"></param>
-    public void OnPointerEnter(PointerEventData eventData)
+     public void OnPointerEnter(PointerEventData eventData)
     {
         if (_baseItem!=null)
         {
@@ -76,7 +86,6 @@ public class InventoryCell : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     /// <summary>
     /// Вышел из зоны действия ячейки
     /// </summary>
-    /// <param name="eventData"></param>
     public void OnPointerExit(PointerEventData eventData)
     {
         Destroy(_itemContext);

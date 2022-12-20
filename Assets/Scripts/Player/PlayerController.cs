@@ -34,12 +34,15 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     public LayerMask groundLayers;
 
-
-
-
+    public static PlayerController Instance;
+    public GameObject playerSpawnPointbyRemove;
 
     private void Awake()
     {
+
+        Instance = this;
+        playerSpawnPointbyRemove = this.gameObject.GetComponent<Creature>().spawnPointAfterRemove;
+
         _playerCamera = Camera.main;
         _creature = GetComponent<Creature>();
         _moveDetailsCreature = _creature.moveDetails; // Move

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInventory : MonoBehaviour
+public class PlayerInventory : MonoBehaviour, IInventoryActions
 {
     [SerializeField] private StorageItemsSO _storageItems; // список всех предметов
     [SerializeField] private GameObject _inventoryGrid; // ссылка на UI инвентаря
@@ -10,8 +10,6 @@ public class PlayerInventory : MonoBehaviour
     private Dictionary<int, int> _playerInventory; // словарь предметов игрока
 
     public static PlayerInventory Instance;
-
-
 
     public StorageItemsSO StorageItems
     {
