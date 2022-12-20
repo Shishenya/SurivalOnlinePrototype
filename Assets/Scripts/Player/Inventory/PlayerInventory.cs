@@ -78,6 +78,9 @@ public class PlayerInventory : MonoBehaviour, IInventoryActions
         return true;
     }
 
+    /// <summary>
+    /// Удаление предмета из инвентаря
+    /// </summary>
     public bool RemoveItem(int id)
     {
 
@@ -110,6 +113,7 @@ public class PlayerInventory : MonoBehaviour, IInventoryActions
             _inventoryGrid.SetActive(false);
             gameObject.GetComponent<PlayerController>().enablePlayerController = true;
             Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
         else // открываем инвентарь
         {

@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         if (!enablePlayerController) return;
-        
+
         // Считываем движение
         _mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * mouseSensitivity;
 
@@ -212,7 +212,8 @@ public class PlayerController : MonoBehaviour
                     if (baseItem != null)
                     {
                         Debug.Log("Объект в мире: " + hit.collider.gameObject.name + "; " + baseItem.basicParameters.itemName + " Дистанция = " + hit.distance);
-                        playerInventory.AddItem(item.id);
+                        if (baseItem.worldParameters.isPickUp)
+                            playerInventory.AddItem(item.id);
                     }
 
                 }

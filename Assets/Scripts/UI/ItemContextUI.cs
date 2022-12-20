@@ -6,15 +6,47 @@ using UnityEngine.UI;
 
 public class ItemContextUI : MonoBehaviour
 {
-    [SerializeField] private TMP_Text descriptionText;
+    [SerializeField] private TMP_Text _nameText;
+    [SerializeField] private TMP_Text _descriptionText;
+    [SerializeField] private TMP_Text _actionsText;
 
-    public void Init(string name, string description)
+    private void OnEnable()
     {
-        descriptionText.text = $"{name} \n\n{description}";
+        _actionsText.text = "";
+    }
+    public void Init(BaseItem baseItem)
+    {
+        _nameText.text = baseItem.basicParameters.itemName;
+        _descriptionText.text = baseItem.basicParameters.itemDescription;
+        if (ActionItem(baseItem, out string textAction))
+        {
+            _actionsText.text = textAction;
+        }
     }
 
     public void Clear()
     {
-        descriptionText.text = "";
+        _nameText.text = "";
+        _descriptionText.text = "";
+    }
+
+    private bool ActionItem(BaseItem baseItem, out string textAction)
+    {
+        bool isAction = false;
+        textAction = "";
+
+        if (baseItem.toolActions.isChop)
+        {
+            isAction = true;
+            textAction += "Можно рубить деревья\n";
+        }
+
+        if (baseItem.toolActions.isPrickStone)
+        {
+            isAction = true;
+            textAction += "Можно добавыть камень\n";
+        }
+
+        return isAction;
     }
 }

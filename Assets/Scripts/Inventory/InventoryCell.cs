@@ -79,7 +79,7 @@ public class InventoryCell : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         if (_baseItem!=null)
         {
             _itemContext = Instantiate(_itemContextPrefab, _itemContextPoint.transform);
-            _itemContext.GetComponent<ItemContextUI>().Init(_baseItem.basicParameters.itemName, _baseItem.basicParameters.itemDescription);
+            _itemContext.GetComponent<ItemContextUI>().Init(_baseItem);
         }
     }
 
