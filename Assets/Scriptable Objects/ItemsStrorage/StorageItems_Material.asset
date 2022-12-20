@@ -67,10 +67,7 @@ MonoBehaviour:
   - id: 5
     basicParameters:
       itemName: "\u041A\u0438\u0440\u043A\u0430"
-      itemDescription: "\u041A\u0440\u0435\u043F\u043A\u0430\u044F \u0438 \u043D\u0430\u0434\u0435\u0436\u043D\u0430\u044F.
-        \u0421 \u0435\u0435 \u043F\u043E\u043C\u043E\u0449\u044C\u044E \u043C\u043E\u0436\u043D\u043E
-        \u0434\u043E\u0431\u044B\u0442\u044C \u043D\u0435\u043C\u043D\u043E\u0433\u043E
-        \u043A\u0430\u043C\u043D\u044F"
+      itemDescription: "\u041A\u0438\u0440\u043A\u0430"
       itemIcon: {fileID: 21300000, guid: 2762db98e35fddc449552bb6872359f7, type: 3}
       maxAmount: 10
     worldParameters:

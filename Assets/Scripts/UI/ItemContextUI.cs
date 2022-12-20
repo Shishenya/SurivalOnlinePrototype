@@ -18,9 +18,9 @@ public class ItemContextUI : MonoBehaviour
     {
         _nameText.text = baseItem.basicParameters.itemName;
         _descriptionText.text = baseItem.basicParameters.itemDescription;
-        if (ActionItem(baseItem, out string textAction))
+        if (ActionItem(baseItem, out string textaction))
         {
-            _actionsText.text = textAction;
+            _actionsText.text = textaction;
         }
     }
 
