@@ -21,23 +21,6 @@ public class PlayerInventory : MonoBehaviour, IInventoryActions
         Instance = this;
         _inventoryGrid.SetActive(false);
         _playerInventory = new Dictionary<int, int>();
-
-
-        // Test
-        // TestLoadInventory();
-    }
-
-    private void TestLoadInventory()
-    {
-        int[] itemsAdd = { 1, 3 };
-        for (int i = 0; i < itemsAdd.Length; i++)
-        {
-            BaseItem item = _storageItems.GetItemInStorage(itemsAdd[i]);
-            if (item != null)
-            {
-                _playerInventory.Add(item.id, 1);
-            }
-        }
     }
 
     private void Update()
@@ -59,19 +42,29 @@ public class PlayerInventory : MonoBehaviour, IInventoryActions
         // Очищаем ячейки
         ClearAllCell();
 
-        BaseItem baseItem = _storageItems.GetItemInStorage(id);
+        BaseItem baseItem = GlobalStorage.Instance.storageItems.GetItemInStorage(id);
         if (baseItem != null)
         {
             // Добавляем предмет
             if (!_playerInventory.ContainsKey(id))
             {
                 _playerInventory.Add(id, 1);
-                Debug.Log("Предмет " + baseItem.basicParameters.itemName + " добавлен в инвентарь как новый");
+                // Debug.Log("Предмет " + baseItem.basicParameters.itemName + " добавлен в инвентарь как новый");
             }
             else
             {
-                _playerInventory[id]++;
-                Debug.Log("Предмет " + baseItem.basicParameters.itemName + " уже был в инвентаре. Мы увеличели его количество. Теперь его " + _playerInventory[id]);
+
+                if (_playerInventory[id] >= baseItem.basicParameters.maxAmount)
+                {
+                    UIController.Instance.uiErrorWindow.gameObject.SetActive(true);
+                    UIController.Instance.uiErrorWindow.ShowErrorText(ErrorCode.maxThisItemInInventory);
+                }
+                else
+                {
+                    _playerInventory[id]++;
+                    // Debug.Log("Предмет " + baseItem.basicParameters.itemName + " уже был в инвентаре. Мы увеличели его количество. Теперь его " + _playerInventory[id]);
+                }
+
             }
         }
 
@@ -92,7 +85,7 @@ public class PlayerInventory : MonoBehaviour, IInventoryActions
         if (!_playerInventory.ContainsKey(id)) return false;
 
         _playerInventory[id]--;
-        if (_playerInventory[id]<=0)
+        if (_playerInventory[id] <= 0)
         {
             _playerInventory.Remove(id);
         }
@@ -112,6 +105,7 @@ public class PlayerInventory : MonoBehaviour, IInventoryActions
         {
             _inventoryGrid.SetActive(false);
             gameObject.GetComponent<PlayerController>().enablePlayerController = true;
+            ClearAllCell();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
@@ -148,5 +142,25 @@ public class PlayerInventory : MonoBehaviour, IInventoryActions
             inventoryCells[i].Init(baseItem, inventoryPlayer.Value);
             i++;
         }
+    }
+
+    /// <summary>
+    /// Возвращает значения инструментов, которые есть у игрока
+    /// </summary>
+    public ToolActionsItems ToolsInPlayer()
+    {
+        ToolActionsItems toolsInPlayer = new ToolActionsItems();
+        foreach (var item in _playerInventory)
+        {
+            BaseItem baseItem = GlobalStorage.Instance.storageItems.GetItemInStorage(item.Key);
+            if (baseItem != null)
+            {
+                if (baseItem.toolActions.isChop) toolsInPlayer.isChop = true;
+                if (baseItem.toolActions.isPrickStone) toolsInPlayer.isPrickStone = true;
+            }
+        }
+
+        return toolsInPlayer;
+
     }
 }

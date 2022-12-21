@@ -4,7 +4,9 @@ public enum CreatureMove: byte
     run
 }
 
-public enum ItemPickUpType: byte
+public enum ErrorCode: byte
 {
-    
+    noToolsByHarvest,
+    maxThisItemInInventory,
+    beingHarvestNow
 }

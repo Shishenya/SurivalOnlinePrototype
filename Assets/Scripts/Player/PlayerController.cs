@@ -202,27 +202,11 @@ public class PlayerController : MonoBehaviour
 
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                // Block PickUp items
+                // Сбор предмета
+                HarvestItem(hit);
 
-                if (hit.collider.GetComponent<Item>() != null)
-                {
-                    Item item = hit.collider.GetComponent<Item>();
-                    PlayerInventory playerInventory = GetComponent<PlayerInventory>();
-                    BaseItem baseItem = playerInventory.StorageItems.GetItemInStorage(item.id);
-                    if (baseItem != null)
-                    {
-                        Debug.Log("Объект в мире: " + hit.collider.gameObject.name + "; " + baseItem.basicParameters.itemName + " Дистанция = " + hit.distance);
-                        if (baseItem.worldParameters.isPickUp)
-                            playerInventory.AddItem(item.id);
-                    }
-
-                }
-                else
-                {
-                    Debug.Log("Неопределнный Объект в мире: " + hit.collider.gameObject.name + "; Дистанция = " + hit.distance);
-                }
-
-                // ---------------------
+                // Поднимаем предмет
+                PickUpItem(hit);                
 
             }
         }
@@ -262,6 +246,43 @@ public class PlayerController : MonoBehaviour
 
         // Debug.Log(_staminaDetailsCreature.currentAmount);
 
+    }
+
+    /// <summary>
+    /// Действие - Поднятие предмета
+    /// </summary>
+    private void PickUpItem(RaycastHit hit)
+    {
+        if (hit.collider.GetComponent<Item>() != null)
+        {
+            Item item = hit.collider.GetComponent<Item>();
+            PlayerInventory playerInventory = GetComponent<PlayerInventory>();
+            BaseItem baseItem = GlobalStorage.Instance.storageItems.GetItemInStorage(item.id);
+            if (baseItem != null)
+            {
+                Debug.Log("Объект в мире: " + hit.collider.gameObject.name + "; " + baseItem.basicParameters.itemName + " Дистанция = " + hit.distance);
+                if (baseItem.worldParameters.isPickUp)
+                    playerInventory.AddItem(item.id);
+            }
+
+        }
+        else
+        {
+            Debug.Log("Неопределнный Объект в мире: " + hit.collider.gameObject.name + "; Дистанция = " + hit.distance);
+        }
+    }
+
+    /// <summary>
+    /// Действие - сбор предмета
+    /// </summary>
+    private void HarvestItem(RaycastHit hit)
+    {
+        if (hit.collider.GetComponent<HarvestableItem>()!=null)
+        {
+            PlayerInventory playerInventory = GetComponent<PlayerInventory>();
+            Debug.Log("Пытаюсь начать сбор");
+            hit.collider.gameObject.GetComponent<HarvestableItem>().HarvestItem(playerInventory);
+        }
     }
 
 
