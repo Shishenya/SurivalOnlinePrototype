@@ -260,15 +260,20 @@ public class PlayerController : MonoBehaviour
             BaseItem baseItem = GlobalStorage.Instance.storageItems.GetItemInStorage(item.id);
             if (baseItem != null)
             {
-                Debug.Log("Объект в мире: " + hit.collider.gameObject.name + "; " + baseItem.basicParameters.itemName + " Дистанция = " + hit.distance);
+                // Debug.Log("Объект в мире: " + hit.collider.gameObject.name + "; " + baseItem.basicParameters.itemName + " Дистанция = " + hit.distance);
                 if (baseItem.worldParameters.isPickUp)
+                {
                     playerInventory.AddItem(item.id);
+                    item.PickUp();
+                    string textInfo = $"Вы подобрали предмет: {baseItem.basicParameters.itemName}";
+                    UIController.Instance.uiInfoWindow.ShowInfoText(textInfo);
+                }
             }
 
         }
         else
         {
-            Debug.Log("Неопределнный Объект в мире: " + hit.collider.gameObject.name + "; Дистанция = " + hit.distance);
+            // Debug.Log("Неопределнный Объект в мире: " + hit.collider.gameObject.name + "; Дистанция = " + hit.distance);
         }
     }
 
@@ -280,7 +285,7 @@ public class PlayerController : MonoBehaviour
         if (hit.collider.GetComponent<HarvestableItem>()!=null)
         {
             PlayerInventory playerInventory = GetComponent<PlayerInventory>();
-            Debug.Log("Пытаюсь начать сбор");
+            // Debug.Log("Пытаюсь начать сбор");
             hit.collider.gameObject.GetComponent<HarvestableItem>().HarvestItem(playerInventory);
         }
     }

@@ -6,4 +6,9 @@ public class Item : MonoBehaviour
 {
     public int id; // ID предмета и Storage
 
+    public void PickUp()
+    {
+        Destroy(gameObject);
+    }
+
  }

@@ -57,11 +57,13 @@ public class InventoryCell : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             // Временно это отвечает за удаление
-
+            if (_baseItem == null) return;
             if (_baseItem.worldParameters.prefabInWorld != null)
             {
                 GameObject removeItem = Instantiate(_baseItem.worldParameters.prefabInWorld, GlobalVariable.Instance.itemsParent.transform);
                 removeItem.transform.position = PlayerController.Instance.playerSpawnPointbyRemove.transform.position;
+                string textInfo = $"Вы выбросили предмет {_baseItem.basicParameters.itemName}";
+                UIController.Instance.uiInfoWindow.ShowInfoText(textInfo);
             }
 
             // Удаляем из инвентаря

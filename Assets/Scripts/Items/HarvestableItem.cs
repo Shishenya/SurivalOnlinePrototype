@@ -52,7 +52,11 @@ public class HarvestableItem : Item
         {
             EndHarvest(playerInventory); // конец сбора предметов
         }
-        // Debug.Log("Итерация сбора завершена");
+        else
+        {
+            string textInfo = $"Чтобы завершить сбор необходимо сделать еще {amountActionMax - _currentAmountAction} действий";
+            UIController.Instance.uiInfoWindow.ShowInfoText(textInfo);
+        }
         harvestRoutine = null;
         yield return null;
 
@@ -63,7 +67,8 @@ public class HarvestableItem : Item
     /// </summary>
     private void EndHarvest(PlayerInventory playerInventory)
     {
-        Debug.Log("Сбор завершен");
+        string textInfo = $"Добыча завершена";
+        UIController.Instance.uiInfoWindow.ShowInfoText(textInfo);
         if (_prefabDropAfterHarvest != null)
         {
             GameObject harvestItem = Instantiate(_prefabDropAfterHarvest, GlobalVariable.Instance.itemsParent.transform);

@@ -9,6 +9,7 @@ public class UIErrorWindow : MonoBehaviour
 
     public void ShowErrorText(ErrorCode errorCode)
     {
+        this.gameObject.SetActive(true);
         string textError = GetErrorText(errorCode);
         StartCoroutine(ShowTextErrorRoutine(textError));
     }
