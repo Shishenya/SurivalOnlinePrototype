@@ -15,8 +15,14 @@ public class Creature : MonoBehaviour
     public float maxStaminaAmount;
     public float currentStaminaAmount;
 
+    [HideInInspector] public PlayerController playerController;
+    [HideInInspector] public PlayerInventory playerInventory;
+
     private void Awake()
     {
+        playerController = GetComponent<PlayerController>();
+        playerInventory = GetComponent<PlayerInventory>();
+
         maxStaminaAmount = staminaDetails.maxAmount;
         currentStaminaAmount = maxStaminaAmount;
     }

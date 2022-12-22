@@ -37,16 +37,26 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance;
     public GameObject playerSpawnPointbyRemove;
 
+    private PlayerInventory _playerInventory;
+
     private void Awake()
     {
 
-        Instance = this;
-        playerSpawnPointbyRemove = this.gameObject.GetComponent<Creature>().spawnPointAfterRemove;
+        Instance = this; // указатель на себя
+        _playerCamera = Camera.main; // камера
+        _creature = GetComponent<Creature>(); // существо
+        
 
-        _playerCamera = Camera.main;
-        _creature = GetComponent<Creature>();
-        _moveDetailsCreature = _creature.moveDetails; // Move
-        _staminaDetailsCreature = _creature.staminaDetails; // Stamina
+    }
+
+    private void Start()
+    {
+        // Блокируем курсор
+        CursorPlayerLock();
+
+        _moveDetailsCreature = _creature.moveDetails; // Показатели движения
+        _staminaDetailsCreature = _creature.staminaDetails; // Показатели стамины
+        _playerInventory = _creature.playerInventory; // Инвентарь
 
         // Устанавливаем скорость
         _activeMoveSpeed = _moveDetailsCreature.walkSpeed;
@@ -55,12 +65,8 @@ public class PlayerController : MonoBehaviour
 
         // Устанавливаем стамину
         _staminaDetailsCreature.currentAmount = _staminaDetailsCreature.maxAmount;
-    }
 
-    private void Start()
-    {
-        // Блокируем курсор
-        CursorPlayerLock();
+        playerSpawnPointbyRemove = _creature.spawnPointAfterRemove; // Точка выброса предмета из инвентаря
     }
 
     private void Update()
@@ -255,25 +261,8 @@ public class PlayerController : MonoBehaviour
     {
         if (hit.collider.GetComponent<Item>() != null)
         {
-            Item item = hit.collider.GetComponent<Item>();
-            PlayerInventory playerInventory = GetComponent<PlayerInventory>();
-            BaseItem baseItem = GlobalStorage.Instance.storageItems.GetItemInStorage(item.id);
-            if (baseItem != null)
-            {
-                // Debug.Log("Объект в мире: " + hit.collider.gameObject.name + "; " + baseItem.basicParameters.itemName + " Дистанция = " + hit.distance);
-                if (baseItem.worldParameters.isPickUp)
-                {
-                    playerInventory.AddItem(item.id);
-                    item.PickUp();
-                    string textInfo = $"Вы подобрали предмет: {baseItem.basicParameters.itemName}";
-                    UIController.Instance.uiInfoWindow.ShowInfoText(textInfo);
-                }
-            }
-
-        }
-        else
-        {
-            // Debug.Log("Неопределнный Объект в мире: " + hit.collider.gameObject.name + "; Дистанция = " + hit.distance);
+            Item item = hit.collider.GetComponent<Item>();            
+            item.PickUp(_playerInventory);            
         }
     }
 
@@ -283,10 +272,8 @@ public class PlayerController : MonoBehaviour
     private void HarvestItem(RaycastHit hit)
     {
         if (hit.collider.GetComponent<HarvestableItem>()!=null)
-        {
-            PlayerInventory playerInventory = GetComponent<PlayerInventory>();
-            // Debug.Log("Пытаюсь начать сбор");
-            hit.collider.gameObject.GetComponent<HarvestableItem>().HarvestItem(playerInventory);
+        {            
+            hit.collider.gameObject.GetComponent<HarvestableItem>().HarvestItem(_playerInventory);
         }
     }
 
