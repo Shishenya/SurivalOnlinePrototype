@@ -33,6 +33,8 @@ public class MainMenuUIController : MonoBehaviourPunCallbacks
     public TMP_InputField nicknameInput; // текстовое поле с именем игрока
     public bool hasSetNickname; // флаг на установку NickName'a
 
+    public GameObject startButton; // кнопка начала игры. ƒоступна только создателю комнаты
+
     private void Awake()
     {
         Instance = this;

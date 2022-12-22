@@ -8,6 +8,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 {
 
     public static Launcher Instance;
+    public string startLevel;
 
     private void Awake()
     {
@@ -21,6 +22,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         // присоединяемся к Лобби
         PhotonNetwork.JoinLobby();
+
+        PhotonNetwork.AutomaticallySyncScene = true;
+
         MainMenuUIController.Instance.infoText.text = "Сервер найден. Настраиваем...";
     }
 
@@ -77,6 +81,15 @@ public class Launcher : MonoBehaviourPunCallbacks
         MainMenuUIController.Instance.roomNameText.text = "Создание игры. \nКомната: " + PhotonNetwork.CurrentRoom.Name;
 
         ListAllPlayers();
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            MainMenuUIController.Instance.startButton.SetActive(true);
+        }
+        else
+        {
+            MainMenuUIController.Instance.startButton.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -157,5 +170,25 @@ public class Launcher : MonoBehaviourPunCallbacks
     private void ListAllPlayers()
     {
         MainMenuUIController.Instance.ListAllPlayers();
+    }
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            MainMenuUIController.Instance.startButton.SetActive(true);
+        }
+        else
+        {
+            MainMenuUIController.Instance.startButton.SetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// Запуск игры
+    /// </summary>
+    public void StartGame()
+    {
+        PhotonNetwork.LoadLevel(startLevel);
     }
 }
