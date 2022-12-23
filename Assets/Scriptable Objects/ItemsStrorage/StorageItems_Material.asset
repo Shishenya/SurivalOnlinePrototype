@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - id: 1
+    resoursePathFolder: 
     basicParameters:
       itemName: "\u041C\u0435\u0442\u0430\u043B\u043B"
       itemDescription: "\u041F\u0440\u043E\u0441\u0442\u043E\u0439 \u043C\u0435\u0442\u0430\u043B\u043B"
@@ -26,6 +27,7 @@ MonoBehaviour:
       isChop: 0
       isPrickStone: 0
   - id: 2
+    resoursePathFolder: MaterialsGames/
     basicParameters:
       itemName: "\u041A\u0430\u043C\u0435\u043D\u044C"
       itemDescription: "\u041A\u0430\u043C\u0435\u043D\u044C. \u0422\u0430\u043A\u0438\u043C
@@ -40,6 +42,7 @@ MonoBehaviour:
       isChop: 0
       isPrickStone: 0
   - id: 3
+    resoursePathFolder: MaterialsGames/
     basicParameters:
       itemName: "\u0414\u0435\u0440\u0435\u0432\u043E"
       itemDescription: "\u0414\u0435\u0440\u0435\u0432\u044F\u0448\u043A\u0430"
@@ -52,6 +55,7 @@ MonoBehaviour:
       isChop: 0
       isPrickStone: 0
   - id: 4
+    resoursePathFolder: Tools/
     basicParameters:
       itemName: "\u0422\u043E\u043F\u043E\u0440"
       itemDescription: "\u041A\u0440\u0435\u043F\u043A\u0438\u0439 \u0442\u043E\u043F\u043E\u0440
@@ -65,6 +69,7 @@ MonoBehaviour:
       isChop: 1
       isPrickStone: 0
   - id: 5
+    resoursePathFolder: Tools/
     basicParameters:
       itemName: "\u041A\u0438\u0440\u043A\u0430"
       itemDescription: "\u041A\u0438\u0440\u043A\u0430"
@@ -77,6 +82,7 @@ MonoBehaviour:
       isChop: 0
       isPrickStone: 1
   - id: 6
+    resoursePathFolder: 
     basicParameters:
       itemName: "\u041C\u0430\u043B\u0435\u043D\u043A\u0430\u044F \u0441\u043A\u0430\u043B\u0430"
       itemDescription: "\u0412\u044B\u0433\u043B\u044F\u0434\u0438\u0442 \u043A\u0440\u0435\u043F\u043A\u043E\u0439.

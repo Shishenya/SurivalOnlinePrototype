@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class Item : MonoBehaviourPunCallbacks
 {
-    public int id; // ID предмета и Storage
+    public int id; // ID предмета и Storage    
 
     /// <summary>
     /// Поднятие предмета

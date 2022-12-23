@@ -63,7 +63,8 @@ public class InventoryCell : MonoBehaviourPunCallbacks, IPointerClickHandler, IP
                 //GameObject removeItem = Instantiate(_baseItem.worldParameters.prefabInWorld, GlobalVariable.Instance.itemsParent.transform);
                 //removeItem.transform.position = PlayerController.Instance.playerSpawnPointbyRemove.transform.position;
 
-                GameObject removeItem = PhotonNetwork.Instantiate(_baseItem.worldParameters.prefabInWorld.name, 
+                string namePrefab = _baseItem.resoursePathFolder + _baseItem.worldParameters.prefabInWorld.name;
+                GameObject removeItem = PhotonNetwork.Instantiate(namePrefab, 
                     playerComponent.playerController.playerSpawnPointbyRemove.transform.position, Quaternion.identity);
                 removeItem.transform.SetParent(GlobalVariable.Instance.itemsParent.transform);
 

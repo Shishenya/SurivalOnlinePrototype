@@ -7,6 +7,7 @@ using System;
 public class BaseItem
 {
     public int id; // ID предмета
+    public string resoursePathFolder = "";
     public VisualItemInInventory basicParameters; // Базовые переметры
     public VisualItemInWorld worldParameters; // параметры предмета в игромов мире
     public ToolActionsItems toolActions; // какие действие инструменра можно производить этим предметом

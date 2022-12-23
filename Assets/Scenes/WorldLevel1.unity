@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: fb66d0262da8d364ab490ef130f5a377, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: c0acaa716dbb549498e59dd53e8af07e, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2684,6 +2684,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 458308674}
     m_Modifications:
+    - target: {fileID: -8790197624760585716, guid: 1db6d130337cf1b4abbfbe2cbf814f80, type: 3}
+      propertyPath: sceneViewId
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2124248857446432693, guid: 1db6d130337cf1b4abbfbe2cbf814f80, type: 3}
       propertyPath: m_Name
       value: Axe
@@ -4744,6 +4748,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 458308674}
     m_Modifications:
+    - target: {fileID: -8916159377342066299, guid: 70a6ac397458a6f43b048e23bbb2cddb, type: 3}
+      propertyPath: sceneViewId
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2513772521567765218, guid: 70a6ac397458a6f43b048e23bbb2cddb, type: 3}
       propertyPath: m_Name
       value: Pickaxe

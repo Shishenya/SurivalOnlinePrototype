@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class HarvestableItem : Item
 {
@@ -71,8 +72,12 @@ public class HarvestableItem : Item
         UIController.Instance.uiInfoWindow.ShowInfoText(textInfo);
         if (_prefabDropAfterHarvest != null)
         {
-            GameObject harvestItem = Instantiate(_prefabDropAfterHarvest, GlobalVariable.Instance.itemsParent.transform);
-            harvestItem.transform.position = RandomDropPositionAfterHarvest();
+            int itemId = _prefabDropAfterHarvest.GetComponent<Item>().id;
+            string namePrefab = GlobalStorage.Instance.storageItems.GetItemInStorage(itemId).resoursePathFolder + _prefabDropAfterHarvest.name;
+            GameObject harvestItem = PhotonNetwork.Instantiate(namePrefab, RandomDropPositionAfterHarvest(), Quaternion.identity);
+            harvestItem.transform.SetParent(GlobalVariable.Instance.itemsParent.transform);
+            //GameObject harvestItem = Instantiate(_prefabDropAfterHarvest, GlobalVariable.Instance.itemsParent.transform);
+            //harvestItem.transform.position = RandomDropPositionAfterHarvest();
             _currentAmountAction = 0;
         }
     }
