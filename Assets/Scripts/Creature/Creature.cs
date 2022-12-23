@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Creature : MonoBehaviour
+public class Creature : MonoBehaviourPunCallbacks
 {
     // Details CReature
     public MoveDatailsSO moveDetails;
@@ -34,10 +34,15 @@ public class Creature : MonoBehaviour
         // ѕолучаем ссылку на инвентарь
         playerInventory = _inventory.GetComponent<PlayerInventory>();
         // передаем в него ссылку на контроллер игрока
-        playerInventory.Init(playerController);        
+        playerInventory.Init(playerController);
 
         maxStaminaAmount = staminaDetails.maxAmount;
         currentStaminaAmount = maxStaminaAmount;
+    }
+
+    private void Start()
+    {
+        MatchManager.Instance.InitPlayer(PhotonNetwork.NickName, playerController, playerInventory);
     }
 
 }

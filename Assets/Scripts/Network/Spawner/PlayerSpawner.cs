@@ -35,6 +35,7 @@ public class PlayerSpawner : MonoBehaviour
         // player = Instantiate(playerPrefab, spawnTransform.position, Quaternion.identity);
 
         player = PhotonNetwork.Instantiate(playerPrefab.name, spawnTransform.position, spawnTransform.rotation);
+        player.gameObject.name = "Player_" + PhotonNetwork.NickName;
         if (player != null)
         {
             Debug.Log(player.name);

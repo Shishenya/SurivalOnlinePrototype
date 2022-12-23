@@ -2,9 +2,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.UI;
+using Photon.Pun;
 using System;
 
-public class InventoryCell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class InventoryCell : MonoBehaviourPunCallbacks, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private Sprite _transperentSprite; // ссылка на спрайт "нулевку"
 
@@ -15,11 +16,6 @@ public class InventoryCell : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     public Image icon; // Ссылка на изображение предмета в инвентаре
     public TMP_Text amountText; // Ссылка на Текст с количством предметов
     private BaseItem _baseItem = null; // Предмет в ячейке
-
-    private void Start()
-    {
-       
-    }
 
     public void Init(BaseItem baseItem, int amount = 0)
     {
@@ -56,18 +52,32 @@ public class InventoryCell : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
+
+            PlayerComponent playerComponent = MatchManager.Instance.GetPlayerComponent(PhotonNetwork.NickName);
+            if (playerComponent == null) return;
+
             // Временно это отвечает за удаление
             if (_baseItem == null) return;
             if (_baseItem.worldParameters.prefabInWorld != null)
             {
-                GameObject removeItem = Instantiate(_baseItem.worldParameters.prefabInWorld, GlobalVariable.Instance.itemsParent.transform);
-                removeItem.transform.position = PlayerController.Instance.playerSpawnPointbyRemove.transform.position;
+                //GameObject removeItem = Instantiate(_baseItem.worldParameters.prefabInWorld, GlobalVariable.Instance.itemsParent.transform);
+                //removeItem.transform.position = PlayerController.Instance.playerSpawnPointbyRemove.transform.position;
+
+                GameObject removeItem = PhotonNetwork.Instantiate(_baseItem.worldParameters.prefabInWorld.name, 
+                    playerComponent.playerController.playerSpawnPointbyRemove.transform.position, Quaternion.identity);
+                removeItem.transform.SetParent(GlobalVariable.Instance.itemsParent.transform);
+
                 string textInfo = $"Вы выбросили предмет {_baseItem.basicParameters.itemName}";
                 UIController.Instance.uiInfoWindow.ShowInfoText(textInfo);
             }
 
-            // Удаляем из инвентаря
-            PlayerInventory.Instance.RemoveItem(_baseItem.id);
+            // Удаляем из инвентаря           
+            if (playerComponent != null)
+            {
+                PlayerInventory playerInventory = playerComponent.playerInventory;
+                playerInventory.RemoveItem(_baseItem.id);
+            }
+
 
             // Debug.Log("Нажал на тебя ПКМ");
         }

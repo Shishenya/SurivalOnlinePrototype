@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class Item : MonoBehaviour
+public class Item : MonoBehaviourPunCallbacks
 {
     public int id; // ID предмета и Storage
 
@@ -24,9 +25,21 @@ public class Item : MonoBehaviour
                 UIController.Instance.uiInfoWindow.ShowInfoText(textInfo);
 
                 // Уничтожаем предмет в игровом мире
-                Destroy(gameObject);
+                // PhotonNetwork.Destroy(photonView);
+                GetComponent<PhotonView>().RPC("DestroyRpc", RpcTarget.All, photonView.ViewID);
+                // Destroy(gameObject);
             }
         }
+    }
+
+    [PunRPC]
+    private void DestroyRpc(int id)
+    {
+        //PhotonNetwork.Destroy(photonView);
+        //yield return 0; // if you allow 1 frame to pass, the object's OnDestroy() method gets called and cleans up references.        
+        //PhotonNetwork.AllocateViewID(photonView.ViewID);
+        // Destroy(destroyGO);
+        PhotonView.Find(id).gameObject.SetActive(false);
     }
 
 }

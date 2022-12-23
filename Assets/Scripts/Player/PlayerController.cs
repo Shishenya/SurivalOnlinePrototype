@@ -47,7 +47,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
         _playerCamera = Camera.main; // камера
         _creature = GetComponent<Creature>(); // существо
         
-
     }
 
     private void Start()
@@ -243,8 +242,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             // Открываем инвентарь
             _playerInventory.OpenCloseInventoryUI();
-            Debug.Log("Нажал Tab!");
-        }
+         }
     }
 
     /// <summary>
