@@ -4,33 +4,28 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour, IInventoryActions
 {
-    [SerializeField] private StorageItemsSO _storageItems; // список всех предметов
     [SerializeField] private GameObject _inventoryGrid; // ссылка на UI инвентар€
     [SerializeField] private List<InventoryCell> inventoryCells; // ссылки на €чейки инвентар€
     private Dictionary<int, int> _playerInventory; // словарь предметов игрока
+    private PlayerController _playerController; // ссылка на контроллер игрока
 
     public static PlayerInventory Instance;
-
-    public StorageItemsSO StorageItems
-    {
-        get => _storageItems;
-    }
+    public bool isInventoryOpen = false;
 
     private void Awake()
     {
         Instance = this;
+
         _inventoryGrid.SetActive(false);
         _playerInventory = new Dictionary<int, int>();
     }
 
-    private void Update()
+    /// <summary>
+    /// »нициализаци€ инвентар€
+    /// </summary>
+    public void Init(PlayerController playerController)
     {
-        // test
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            // ќткрываем инвентарь
-            OpenCloseInventoryUI();
-        }
+        _playerController = playerController;
     }
 
     /// <summary>
@@ -99,25 +94,26 @@ public class PlayerInventory : MonoBehaviour, IInventoryActions
     /// <summary>
     /// ќткрытие и закрытие инвентар€
     /// </summary>
-    private void OpenCloseInventoryUI()
+    public void OpenCloseInventoryUI()
     {
-        if (_inventoryGrid.activeInHierarchy) // закрываем инвентарь
+        if (isInventoryOpen) // закрываем инвентарь
         {
+            isInventoryOpen = false;
             _inventoryGrid.SetActive(false);
-            gameObject.GetComponent<PlayerController>().enablePlayerController = true;
             ClearAllCell();
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+
+            _playerController.InActionsModeOff();
+            _playerController.enablePlayerController = true;
         }
         else // открываем инвентарь
         {
+            isInventoryOpen = true;
             ClearAllCell();
             VisualInventory();
 
             _inventoryGrid.SetActive(true);
-            gameObject.GetComponent<PlayerController>().enablePlayerController = false;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            _playerController.InActionsModeOn();
+            _playerController.enablePlayerController = false;
         }
     }
 
@@ -132,13 +128,15 @@ public class PlayerInventory : MonoBehaviour, IInventoryActions
         }
     }
 
+    /// <summary>
+    /// ¬изуализаци€ €чеек инвентар€
+    /// </summary>
     private void VisualInventory()
     {
         int i = 0;
         foreach (var inventoryPlayer in _playerInventory)
         {
-            // Debug.Log(inventoryPlayer.Value.basicParameters.itemName);
-            BaseItem baseItem = StorageItems.GetItemInStorage(inventoryPlayer.Key);
+            BaseItem baseItem = GlobalStorage.Instance.storageItems.GetItemInStorage(inventoryPlayer.Key);
             inventoryCells[i].Init(baseItem, inventoryPlayer.Value);
             i++;
         }

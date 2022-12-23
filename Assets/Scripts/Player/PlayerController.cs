@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPunCallbacks
 {
     private Camera _playerCamera;
     private Creature _creature;
@@ -71,37 +72,46 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (!enablePlayerController) return;
+        if (photonView.IsMine)
+        {
+            if (!enablePlayerController && !_playerInventory.isInventoryOpen) return;
 
-        // Считываем движение
-        _mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * mouseSensitivity;
+            // Считываем движение
+            _mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * mouseSensitivity;
 
-        // Осмотр положения вокруг себя по горизонтале
-        MouseViewHorizontal();
+            // Осмотр положения вокруг себя по горизонтале
+            MouseViewHorizontal();
 
-        // Осмотр по вертикали
-        MouseViewVertical();
+            // Осмотр по вертикали
+            MouseViewVertical();
 
-        // Проверка на нахождение на земле
-        CheckGround();
+            // Проверка на нахождение на земле
+            CheckGround();
 
-        // Движение игрока
-        InputMove();
+            // Движение игрока
+            InputMove();
 
-        // Прыжок
-        InputJump();
+            // Прыжок
+            InputJump();
 
-        // Взаиподействие
-        InputUse();
+            // Инвентарь
+            InputInventory();
 
-        characterController.Move(_movement * Time.deltaTime);
+            // Взаиподействие
+            InputUse();
+
+            characterController.Move(_movement * Time.deltaTime);
+        }
     }
 
     private void LateUpdate()
     {
         // перемещение камеры согласно туда, куда смотрит игрок
-        _playerCamera.transform.position = viewPoint.position;
-        _playerCamera.transform.rotation = viewPoint.rotation;
+        if (photonView.IsMine)
+        {
+            _playerCamera.transform.position = viewPoint.position;
+            _playerCamera.transform.rotation = viewPoint.rotation;
+        }
     }
 
     /// <summary>
@@ -226,6 +236,17 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    private void InputInventory()
+    {
+        // test
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            // Открываем инвентарь
+            _playerInventory.OpenCloseInventoryUI();
+            Debug.Log("Нажал Tab!");
+        }
+    }
+
     /// <summary>
     /// Изменение стамины существа
     /// </summary>
@@ -249,9 +270,6 @@ public class PlayerController : MonoBehaviour
         }
 
         StaminaBar.instance.ChangeAmount(_creature.currentStaminaAmount, _creature.maxStaminaAmount);
-
-        // Debug.Log(_staminaDetailsCreature.currentAmount);
-
     }
 
     /// <summary>
@@ -275,6 +293,24 @@ public class PlayerController : MonoBehaviour
         {            
             hit.collider.gameObject.GetComponent<HarvestableItem>().HarvestItem(_playerInventory);
         }
+    }
+
+    /// <summary>
+    /// режим действия. Мышка и курсор видны
+    /// </summary>
+    public void InActionsModeOn()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    /// <summary>
+    /// режим от первого лица. Мышка и курсор отсуствует
+    /// </summary>
+    public void InActionsModeOff()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
 
